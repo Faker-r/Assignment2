@@ -42,17 +42,40 @@ class Assignment2Q1 {
         }
         Collections.reverse(smaller);
         Collections.reverse(larger);
-        ArrayList<Integer> n = new ArrayList<Integer>(larger); 
+        ArrayList<Integer> n = new ArrayList<Integer>(); 
+        boolean move = false;
         for(int i = 0; i<smaller.size(); i++){
-            n.add(larger.get(i));
-        }
-        for(int i = 0; i<smaller.size(); i++){
-            l =(larger.get(i+larger.size()-smaller.size())+smaller.get(i));
+            int l =(larger.get(i)+smaller.get(i));
+            if(move) {
+                l++;
+                move=false;
+            }
             if(l>=10){
-                l-=10;
+                n.add(l-10);
+                
+                if(i == larger.size()-1) n.add(1);
+                else move = true;
+            }
+            else n.add(l);
+            
+        }
+        
+        for(int i = smaller.size(); i<larger.size(); i++){
+            if(move == true){
+                if(larger.get(i) == 9){
+                    n.add(0);
+                    if(i == larger.size()-1) n.add(1);
+                } 
+                else{
+                    move = false; 
+                    n.add(larger.get(i)+1);
+                }
+            }
+            
+            else n.add(larger.get(i));
                 
             }
-        }
+        Collections.reverse(n);
         return n;
     }
     
@@ -61,13 +84,13 @@ class Assignment2Q1 {
         ArrayList<Integer> b = new ArrayList<Integer>();
         a.add(9);
         a.add(8);
-        a.add(0);
+        a.add(5);
         a.add(1);
         b.add(3);
         b.add(4);
-        b.add(5);
+        b.add(9);
         
         
-        Sytem.out.println(add(a,b));
+        System.out.println(add(a,b));
     }
 }
